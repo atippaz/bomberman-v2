@@ -83,18 +83,21 @@ function cubicInterpolation(array, t, tangentFactor = 1) {
     (t3 - t2) * m[1]
   );
 }
-export async function initial(dom: HTMLElement) {
+export async function initialMapCanvas(
+  dom: HTMLElement,
+  width: number,
+  height: number
+) {
   const app = new Application();
   await app.init({
-    width: dom.clientWidth,
-    height: dom.clientHeight,
-    // backgroundColor: 0x2c3e50,
-    // resizeTo: dom,
+    width,
+    height,
   });
   dom.appendChild(app.canvas);
   //   document.body.appendChild(app.canvas);
   //   initMouse(app);
   initGame(app);
+  return app;
 }
 async function initMouse(app: Application) {
   const trailTexture = await Assets.load("https://pixijs.com/assets/trail.png");
@@ -153,10 +156,10 @@ async function initGame(app: Application) {
   );
 
   // Center the sprite's anchor point
-  bunny.anchor.set(0.5);
+  bunny.anchor.set(0);
   // Move the sprite to the center of the screen
-  bunny.x = app.renderer.width / 2;
-  bunny.y = app.renderer.height / 2;
+  bunny.x = 150;
+  bunny.y = 150;
 
   app.stage.addChild(bunny);
   const tileSize = 50;

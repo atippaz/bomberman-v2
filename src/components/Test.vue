@@ -19,10 +19,9 @@ import PlayerUp from "../asset/images/player/Player_Run_Up.gif";
 
 import "@pixi/gif";
 import { onMounted, ref } from "vue";
-import { keyboard } from "../utils/keyboard";
 // import GameTheme from "../asset/sounds/Sounds/Bgm/GameTheme.wav";
 import { GameMapObject, Tag } from "../utils/gameManager";
-import { initial } from "../game_engine/pixi";
+import { createMap } from "../game_engine";
 const pixiContainer = ref<HTMLElement | null>(null);
 const imagePaths = new Map<Tag | number, any>();
 imagePaths.set(Tag.WALL, await Assets.load(Wall));
@@ -33,8 +32,13 @@ imagePaths.set(-1, await Assets.load(PlayerUp));
 
 onMounted(async () => {
   // const app = new Application();
-  const tileSize = 64;
-  initial(pixiContainer.value);
+  const tileSize = 50;
+  createMap(pixiContainer.value, {
+    heightBlock: 12,
+    widthBlock: 20,
+    tileSize: tileSize,
+  });
+  // initial(pixiContainer.value);
   // await app.init({
   //   width: 20 * tileSize,
   //   height: 12 * tileSize,
